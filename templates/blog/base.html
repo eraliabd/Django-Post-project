@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static "css/blog.css" %}">
+</head>
+<body>
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<div id="sidebar">
+    <h2>Dasturlash tillari haqida ma'lumotlar</h2>
+    <p>Barcha dasturlash tillari haqidagi qiziqarli ma'lumotlar va yangiliklarni yoritib beruvchi sayt</p>
+    <div>
+        {% for post in posts %}
+        <div>
+            <h2 class="lang_post">
+                <a href="{{ post.get_absolute_url }}">
+                    {{ post.title }}
+                </a>
+            </h2>
+        </div>
+    {% endfor %}
+    <div class="post_link"><h3 class="lang_post"><a href="/">Bosh sahifa</a></h3></div>
+    </div>
+</div>
+</body>
+</html>

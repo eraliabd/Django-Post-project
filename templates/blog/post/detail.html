@@ -1,0 +1,50 @@
+{% extends "blog/base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+    <div class="detail_content">
+        <div class="bg_detail">
+            <h1>{{ post.title }} dasturlash tili</h1>
+        </div>
+        <p class="date">
+            Published {{ post.publish }} by {{ post.author }}
+        </p>
+        {{ post.body|linebreaks }}
+        <p class="share">
+            <a href="{% url "blogapp:post_share" post.id %}">
+                Share this post
+            </a>
+        </p>
+
+        {% with comments.count as total_comments %}  {# with bilan o'zgaruvchi yaratib olinadi(comments.count ni total_comments bitta o'zgaruvchiga ovomman)#}
+            <h2>
+                {{ total_comments }} comment{{ total_comments|pluralize }}  {# pluralize - 1 tadan ko'p comment bo'lsa ("s" ni qo'shib beradi)#}
+            </h2>
+        {% endwith %}
+
+        {% for comment in comments %}
+            <div class="comment">
+                <p class="info">
+                    Comment {{ forloop.counter }} {{ comment.name }}
+                    {{ comment.created }}
+                </p>
+                {{ comment.body|linebreaks }}
+            </div>
+        {% empty %}
+            <p>There are no comments yet.</p>
+        {% endfor %}
+
+        {% if new_comment %}
+            <h2>Your comment has been added.</h2>
+        {% else %}
+            <div class="new_comment">
+                <h2>Add a new comment</h2>
+                <form method="post"  style="background-color: #5151f5; color: #efefef;">
+                    {{ comment_form.as_p }}
+                    {% csrf_token %}
+                <p><input type="submit" value="Add comment"></p>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

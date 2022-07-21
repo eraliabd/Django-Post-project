@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+{% block title %}Programming language{% endblock %}
+
+{% block content %}
+    <div class="bg_list">
+        <h1>Dastulash tillari 💻</h1>
+    </div>
+    {% for post in posts %}
+        <div class="post">
+            <h2>
+                <a href="{{ post.get_absolute_url }}">
+                    {{ post.title }}
+                </a>
+            </h2>
+        <p class="data">
+            Published {{ post.publish }} by {{ post.author }}
+        </p>
+        {{ post.body|truncatewords:30|linebreaks }}
+        </div>
+    {% endfor %}
+    {% include "paginator.html" with page=page_obj %}
+{% endblock %}
+{# page=page_obj bu ListView ga tegishli va paginator keldimi pageni qo'yilishi shart #}
+{# linebreaks qanday tartibda post qo'yilgan bo'lsa ushanday oberadi bizaga enter lari bilan #}
+{# truncatewords - postni ko'rinib turishida nechta so'z ko'rinib turishini belgilaydi (truncatewords:30 degani 30 ta so'z ko'rinsin deyapti) #}
+{# include degani "paginator.html" ni shu joyga olib kelib qo'shib qo'yadi degani #}
