@@ -60,7 +60,7 @@ def post_share(request, post_id):
             title = f"{cd['name']} sizga {post.title} ni o'qishni taklif etadi."
             message = f"Read {post.title} at {post_url}\n\n" \
                       f"{cd['name']}\'s comments: {cd['comments']}"
-            send_mail(title, message, 'eraliabdinazarov22@gmail.com', [cd['to']])
+            send_mail(title, message, 'email', [cd['to']])
             sent = True
 
     else:
